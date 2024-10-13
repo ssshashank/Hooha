@@ -14,7 +14,12 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"],
-			"@/assets/*": ["./assets/*"]
+			"@Assets/*": ["./assets/*"],
+			"@Components/*": ["./src/components/*"],
+            "@Constants/*": ["./src/constants/*"],
+			"@Hooks/*": ["./src/hooks/*"],
+			"@Styles/*": ["./src/styles/*"],
+			"@Utils/*": ["./src/utils/*"],
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
