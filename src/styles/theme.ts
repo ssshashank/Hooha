@@ -1,29 +1,43 @@
-export const AppTheme = {
-    colors: {
-        primary: '#007AFF',
-        secondary: '#007AFF',
-        background: '#fff',
-        text: '#000',
+import  {ColorTheme } from "./theme.type";
+
+
+export const ClassicTheme: ColorTheme = {
+    light: {
+        primary: '#597445',
+        secondary: '#658147',
+        tertiary: '#729762',
+        background: '#E7F0DC',
+        primaryText: '#000000',
+        secondaryText: '#FFFFFF',
+        textDisabled: '#FFFFFF',
+        border: '#FFFFFF',
     },
-    fontWeights: {
-        thin: 100,
-        light: 300,
-        normal: 400,
-        medium: 500,
-        semiBold: 600,
-        bold: 700,
-        extraBold: 800,
-        black: 900,
+    dark: {
+        primary: '#597445',
+        secondary: '#658147',
+        tertiary: '#3F4E4F',
+        background: '#2C3639',
+        primaryText: '#FFFFFF',
+        secondaryText: '#000000',
+        textDisabled: '#FFFFFF',
+        border: '#FFFFFF',
     },
-    fontSizes: {
-        xxs: 10,
-        xs: 12,
-        sm: 14,
-        md: 16,
-        lg: 18,
-        xl: 20,
-        xxl: 24,
-        xxxl: 28,
-        xxxxl: 32,
-    }
 };
+
+
+/* how to use the above theme
+ const styles = StyleSheet.create({
+    container: {
+        backgroundColor: AppTheme.colors.background,
+        padding: 10,
+    },
+    text: {
+        color: AppTheme.colors.text,
+        fontSize: AppTheme.fontSizes.md,
+        fontWeight: AppTheme.fontWeights.bold,
+    },
+});
+
+
+*/
+
