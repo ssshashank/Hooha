@@ -9,19 +9,21 @@
 		"lib": ["dom", "esnext"],
 		"noEmit": true,
 		"allowSyntheticDefaultImports": true,
+        "allowImportingTsExtensions": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"],
-			"@Assets/*": ["./assets/*"],
+			"@Assets/*": ["./src/assets/*"],
 			"@Components/*": ["./src/components/*"],
             "@Constants/*": ["./src/constants/*"],
 			"@Hooks/*": ["./src/hooks/*"],
 			"@Styles/*": ["./src/styles/*"],
 			"@Utils/*": ["./src/utils/*"],
+            "@Providers/*": ["./src/providers/*"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
+	"include": ["src","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
 	"exclude": ["node_modules"]
 }
