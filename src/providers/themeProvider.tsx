@@ -2,9 +2,9 @@
 // imports
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { useColorScheme } from 'react-native';
-import { ClassicTheme } from "@Styles/theme";
-import { ColorTheme, Mode } from '@Styles/theme.type';
+import { Colors, ColorTheme, Mode } from '@Styles/theme.type';
 import { ThemeMode } from '@Constants/application';
+import ClassicTheme from '@/styles/classic';
 
 /**
  * Props interface for the ThemeProvider component
@@ -22,7 +22,7 @@ interface ThemeProviderProps {
  */
 interface ThemeContextProps {
     mode: Mode;
-    theme: ColorTheme;
+    theme: Colors;
     changeTheme: (theme: string) => void;
     changeMode: (mode: Mode) => void;
 }
@@ -32,7 +32,7 @@ interface ThemeContextProps {
  * This context will be used to share theme state across the app
  */
 export const ThemeContext = createContext<ThemeContextProps>({
-    theme: ClassicTheme,
+    theme: ClassicTheme.light,
     mode: ThemeMode.LIGHT,
     changeTheme: () => { },
     changeMode: () => { }
@@ -61,30 +61,32 @@ export const useTheme = (): ThemeContextProps => {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // initial states
     const colorScheme = useColorScheme();
-    const [theme, setTheme] = useState<ColorTheme>(ClassicTheme);
-    const [mode, setMode] = useState<Mode>(ThemeMode.LIGHT);
-
-    // useEffect to update theme based on color scheme
-    useEffect(() => {
-        if (mode === ThemeMode.SYSTEM) {
-            setMode(colorScheme === 'light' ? ThemeMode.LIGHT : ThemeMode.DARK);
-        }
-    }, [colorScheme, mode]);
+    const [theme, setTheme] = useState<Colors>(ClassicTheme?.light);
+    const [mode, setMode] = useState<Mode>(ThemeMode.SYSTEM);
 
     /**
      * Callback to change the current theme
      * @param {string} colorTheme - The theme to switch to
      */
-    const changeTheme = useCallback((colorTheme: string) => {
-        switch (colorTheme.toUpperCase()) {
-            case "CLASSIC":
-                setTheme(ClassicTheme);
+    const changeTheme = useCallback((colorTheme?: string) => {
+        switch (colorTheme?.toUpperCase()) {
+            case 'CLASSIC':
+                if (mode === ThemeMode.SYSTEM) {
+                    setTheme(colorScheme === 'light' ? ClassicTheme?.light : ClassicTheme?.dark);
+                } else {
+                    setTheme(mode === 'light' ? ClassicTheme?.light : ClassicTheme?.dark);
+                }
                 break;
             default:
-                setTheme(ClassicTheme);
+                if (mode === ThemeMode.SYSTEM) {
+                    setTheme(colorScheme === 'light' ? ClassicTheme?.light : ClassicTheme?.dark);
+                } else {
+                    setTheme(mode === 'light' ? ClassicTheme?.light : ClassicTheme?.dark);
+                }
                 break;
         }
-    }, []);
+    }, [colorScheme, mode]);
+
 
     /**
      * Callback to change the current mode (light/dark/system)
@@ -94,12 +96,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         switch (newMode) {
             case ThemeMode.LIGHT:
                 setMode(ThemeMode.LIGHT);
+                changeTheme();
                 break;
             case ThemeMode.DARK:
                 setMode(ThemeMode.DARK);
                 break;
             case ThemeMode.SYSTEM:
-                setMode(colorScheme === 'light' ? ThemeMode.LIGHT : ThemeMode.DARK);
+                setMode(ThemeMode.SYSTEM);
                 break;
             default:
                 setMode(ThemeMode.LIGHT);
@@ -107,12 +110,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         }
     }, [colorScheme]);
 
-    const themeContextValue = useMemo<ThemeContextProps>(() => ({
+    const themeContextValue = useMemo(() => ({
         theme,
         mode,
         changeTheme,
         changeMode
     }), [theme, mode, changeTheme, changeMode]);
+
+    //useEffect to update theme based on color scheme
+    useEffect(() => {
+        changeMode(mode);
+        changeTheme();
+    }, [colorScheme, mode]);
 
     return (
         <ThemeContext.Provider value={themeContextValue}>
