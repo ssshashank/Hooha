@@ -1,28 +1,21 @@
-export type Color = string;
+import { ThemeMode } from "@/constants/application";
 
-export type Weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+export type ThemeType = 'CLASSIC' | 'MODERN' | 'VINTAGE' | 'MINIMAL';
 
-export type Size = number;
-
-export type Mode = 'light' | 'dark' | 'system';
+export type Mode = typeof ThemeMode[keyof typeof ThemeMode];
 
 export interface Colors {
-    primary: Color;
-    secondary: Color;
-    tertiary: Color;
-    background: Color;
-    primaryText: Color;
-    secondaryText: Color;
-    textDisabled: Color;
-    border: Color;
-
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    background: string;
+    primaryText: string;
+    secondaryText: string;
+    textDisabled: string;
+    border: string;
 }
 
-export interface ColorTheme{
+export interface ColorTheme {
     light: Colors;
     dark: Colors;
 }
-
-
-
-
