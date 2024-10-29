@@ -1,13 +1,8 @@
 // imports
 import { Dimensions } from 'react-native';
 
-// declare the types for our dimension variables
-let deviceWidth: number;
-let deviceHeight: number;
-let deviceScale: number;
-
 // get the dimensions
-({ width: deviceWidth, height: deviceHeight, scale: deviceScale } = Dimensions.get('window'));
+const { width, height, scale} = Dimensions.get('window');
 
 /*
  * @Function() wp
@@ -21,9 +16,8 @@ export const wp = (percentage: number): number => {
         // throw error
         throw new Error('Percentage must be between 0 and 100');
     }
-
     // return
-    return Math.round((percentage / 100) * deviceWidth) / deviceScale;
+    return Math.round((percentage * width) / 100);
 };
 
 /*
@@ -38,7 +32,7 @@ export const hp = (percentage: number): number => {
         // throw error
         throw new Error('Percentage must be between 0 and 100');
     }
-    
-    // return
-    return Math.round((percentage / 100) * deviceHeight) / deviceScale;
+
+    // return 
+    return Math.round((percentage * height) / 100);
 };
