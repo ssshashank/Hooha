@@ -21,7 +21,8 @@
 			"@Hooks/*": ["./src/hooks/*"],
 			"@Styles/*": ["./src/styles/*"],
 			"@Utils/*": ["./src/utils/*"],
-            "@Providers/*": ["./src/providers/*"]
+            "@Providers/*": ["./src/providers/*"],
+            "@Helpers/*": ["./src/helpers/*"]
 		}
 	},
 	"include": ["src","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
