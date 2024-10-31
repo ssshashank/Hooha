@@ -2,9 +2,9 @@
 // imports
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { useColorScheme } from 'react-native';
-import { Colors, ColorTheme, Mode } from '@Styles/theme.type';
+import { Colors, Mode } from '@Styles/theme.type';
 import { ThemeMode } from '@Constants/application';
-import ClassicTheme from '@/styles/classic';
+import ClassicTheme from '@Styles/classic';
 
 /**
  * Props interface for the ThemeProvider component
@@ -129,3 +129,4 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         </ThemeContext.Provider>
     );
 };
+
