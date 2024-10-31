@@ -5,7 +5,7 @@ const ClassicTheme: ColorTheme = {
         primary: '#597445',
         secondary: '#658147',
         tertiary: '#729762',
-        background: '#e4fac9',
+        background: '#E7F0DC',
         primaryText: '#000000',
         secondaryText: '#FFFFFF',
         textDisabled: '#FFFFFF',
