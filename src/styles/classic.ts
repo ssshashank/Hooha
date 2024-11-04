@@ -2,23 +2,23 @@ import { ColorTheme } from "./theme.type";
 
 const ClassicTheme: ColorTheme = {
     light: {
-        primary: '#597445',
-        secondary: '#658147',
-        tertiary: '#729762',
-        background: '#E7F0DC',
-        primaryText: '#000000',
-        secondaryText: '#FFFFFF',
-        textDisabled: '#FFFFFF',
+        primary: '#021420',
+        secondary: '#0A253A',
+        tertiary: '#E8EBF1',
+        background: '#ffffff',
+        primaryText: '#021420',
+        secondaryText: '#0A253A',
+        disabled: '#CED1D4',
         border: '#FFFFFF',
     },
     dark: {
-        primary: '#DCD7C9',
+        primary: '#021420',
         secondary: '#A27B5C',
         tertiary: '#3F4E4F',
-        background: '#2C3639',
-        primaryText: '#FFFFFF',
+        background: '#000000',
+        primaryText: '#A27B5C',
         secondaryText: '#000000',
-        textDisabled: '#FFFFFF',
+        disabled: '#FFFFFF',
         border: '#FFFFFF',
     }
 };

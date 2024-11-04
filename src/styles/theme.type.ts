@@ -11,7 +11,7 @@ export interface Colors {
     background: string;
     primaryText: string;
     secondaryText: string;
-    textDisabled: string;
+    disabled: string;
     border: string;
 }
 
