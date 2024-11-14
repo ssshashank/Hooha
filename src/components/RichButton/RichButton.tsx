@@ -48,22 +48,28 @@ const RichButton = forwardRef<React.ElementRef<typeof Pressable>, RichButtonProp
             style={({ pressed }) => {
                 const baseStyle = typeof style === 'function' ? style({ pressed }) : style;
                 return [
+                    {
+                        flex: 1, justifyContent: 'center', alignItems: 'center', maxHeight: 55, height: 55,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 4, height: 4 },
+                        shadowOpacity: 0.1,
+                        shadowRadius: 0,
+                        elevation: 5
+                    },
                     buttonStyle,
                     baseStyle,
-                    pressed && { opacity: 0.7 } // Optional: add a press effect
+                    pressed && { opacity: 0.8 } // Optional: add a press effect
                 ];
             }}
             {...otherProps}
         >
             {children}
-        </Pressable>);
+        </Pressable>
+    );
 });
 
 // Set a display name for debugging
 RichButton.displayName = 'RichButton';
-
-
-
 
 
 /**
@@ -92,10 +98,12 @@ const RichFABButton = forwardRef<React.ElementRef<typeof Pressable>, RichFABButt
                 const baseStyle = typeof style === 'function' ? style({ pressed }) : style;
                 return [
                     {
-                        borderRadius: 10, flex: 1, width: 60, height: 60, justifyContent: 'center', alignItems: 'center', shadowColor: '#171717',
-                        shadowOffset: { width: 0, height: 3 },
+                        borderRadius: 10, flex: 1, width: 60, maxHeight: 60, height: 60, justifyContent: 'center', alignItems: 'center',
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 1 },
                         shadowOpacity: 0.3,
                         shadowRadius: 2,
+                        elevation: 5
                     },
                     buttonStyle,
                     baseStyle,
