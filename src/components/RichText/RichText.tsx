@@ -7,7 +7,7 @@ import { Text, TextProps } from 'react-native';
  * Extends TextProps to include all standard Text component props.
  */
 interface RichTextProps extends TextProps {
-    title: string
+    children?: React.ReactNode
 }
 
 
@@ -23,11 +23,11 @@ interface RichTextProps extends TextProps {
  * @returns A Text component with the given text and forwarded props
  */
 const RichText = forwardRef<Text, RichTextProps>((props, ref) => {
-    const { style, title, ...otherProps } = props;
+    const { style, children, ...otherProps } = props;
 
     // return
     return (
-        <Text ref={ref} style={[style]} {...otherProps}> {title} </Text>
+        <Text ref={ref} style={[style]} {...otherProps}> {children}</Text>
     );
 });
 
