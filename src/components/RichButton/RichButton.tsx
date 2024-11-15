@@ -1,7 +1,7 @@
 // import
-import { hp, wp } from '@/helpers/dimension';
 import { forwardRef } from 'react';
-import { Pressable, PressableProps, StyleProp, Text, TextStyle, ViewStyle } from 'react-native';
+import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 // types of Button
 enum ButtonVariant {
@@ -58,7 +58,7 @@ const RichButton = forwardRef<React.ElementRef<typeof Pressable>, RichButtonProp
                     },
                     buttonStyle,
                     baseStyle,
-                    pressed && { opacity: 0.8 } // Optional: add a press effect
+                    pressed && { opacity: 1 } // Optional: add a press effect
                 ];
             }}
             {...otherProps}
@@ -71,6 +71,7 @@ const RichButton = forwardRef<React.ElementRef<typeof Pressable>, RichButtonProp
 // Set a display name for debugging
 RichButton.displayName = 'RichButton';
 
+const AnimatedRichButton = Animated.createAnimatedComponent(RichButton);
 
 /**
  * Props for the RichFABButton component.
@@ -119,4 +120,4 @@ const RichFABButton = forwardRef<React.ElementRef<typeof Pressable>, RichFABButt
 // Set a display name for debugging
 RichFABButton.displayName = 'RichFABButton';
 
-export { RichButton, RichFABButton };
+export { RichButton, AnimatedRichButton, RichFABButton };
