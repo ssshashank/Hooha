@@ -8,15 +8,15 @@ export const enum ThemeMode {
 }
 
 export const enum FontWeight {
-    W100 = 100,
-    W200 = 200,
-    W300 = 300,
-    W400 = 400,
-    W500 = 500,
-    W600 = 600,
-    W700 = 700,
-    W800 = 800,
-    W900 = 900
+    W100 = '100',
+    W200 = '200',
+    W300 = '300',
+    W400 = '400',
+    W500 = '500',
+    W600 = '600',
+    W700 = '700',
+    W800 = '800',
+    W900 = '900'
 }
 
 export const enum FontSize {
@@ -28,5 +28,7 @@ export const enum FontSize {
     XL = 20,
     XXL = 24,
     XXXL = 28,
-    XXXXL = 32
+    XXXXL = 32,
+    TALL = 50,
+    MEGA = 60
 }
