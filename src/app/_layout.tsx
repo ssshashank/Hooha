@@ -1,9 +1,27 @@
-import { Stack } from "expo-router"
-const RootLayot = () => {
-    return <Stack>
-        <Stack.Screen name='index' options={{ headerShown: false }} />
-        <Stack.Screen name='auth' options={{ headerShown: false }} />
-    </Stack>;
+// imports
+import { Stack } from "expo-router";
+import { StatusBar, View } from "react-native";
+import {ThemeProvider } from "@Providers/themeProvider";
+
+/*
+ * @Function() Root Layout
+ * @Description() This is the Root Layout
+ * @Params() None
+ * @Return() React.FC
+*/
+const RootLayout: React.FC = () => {
+
+    // return
+    return (
+        <ThemeProvider>
+            <View style={{ flex: 1 }}>
+                <StatusBar barStyle={'default'} />
+                <Stack>
+                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                </Stack>
+            </View>
+        </ThemeProvider>
+    );
 };
 
-export default RootLayot;
+export default RootLayout;
