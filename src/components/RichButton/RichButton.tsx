@@ -1,5 +1,5 @@
 // import
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { Pressable, PressableProps, StyleProp, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
@@ -70,8 +70,9 @@ const RichButton = forwardRef<React.ElementRef<typeof Pressable>, RichButtonProp
 
 // Set a display name for debugging
 RichButton.displayName = 'RichButton';
-
 const AnimatedRichButton = Animated.createAnimatedComponent(RichButton);
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /**
  * Props for the RichFABButton component.
@@ -119,5 +120,6 @@ const RichFABButton = forwardRef<React.ElementRef<typeof Pressable>, RichFABButt
 
 // Set a display name for debugging
 RichFABButton.displayName = 'RichFABButton';
+const AnimatedRichFABButton = Animated.createAnimatedComponent(RichButton);
 
-export { RichButton, AnimatedRichButton, RichFABButton };
+export { RichButton, AnimatedRichButton, RichFABButton, AnimatedRichFABButton };
