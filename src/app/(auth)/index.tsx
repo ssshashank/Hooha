@@ -8,6 +8,7 @@ import { hp, wp } from "@Helpers/dimension";
 import { RightArrow } from "@Assets/svg/rightArrow";
 import { useSharedValue, withSpring } from "react-native-reanimated";
 import { FontSize, FontWeight } from "@Constants/application";
+import { BackgroundPattern } from "@Assets/svg/bgPattern";
 
 
 /*
@@ -22,13 +23,15 @@ const LandingScreen: React.FC = () => {
     const { theme } = appTheme;
     const styles = createStyles(theme);
 
-    const handleButtonPressIn  = () => gap.value = withSpring(30);
+    const handleButtonPressIn = () => gap.value = withSpring(30);
     const handleButtonPressOut = () => gap.value = withSpring(15);
 
     // return
     return (
         <ScrollView style={styles.scrollView} alwaysBounceVertical={false}>
             <View style={styles.container}>
+                <BackgroundPattern style={styles.backgroundPattern} />
+
                 <View style={styles.topContainer}>
                 </View>
                 <View style={styles.bottomContainer}>
@@ -57,10 +60,19 @@ const createStyles = (theme: Colors) => StyleSheet.create({
         backgroundColor: theme.background,
     },
     container: {
+        position: 'relative',
         height: hp(89),
         width: wp(90),
-        margin: 'auto',
+        //margin: 'auto',
+        alignSelf: 'center',
         backgroundColor: 'transparent',
+    },
+    backgroundPattern: {
+        position: 'absolute',
+        right: -wp(40),
+        top: -hp(26),
+        width: wp(100),
+        height: hp(100),
     },
     topContainer: {
         height: hp(45),
@@ -80,7 +92,7 @@ const createStyles = (theme: Colors) => StyleSheet.create({
     },
     tagline: {
         fontSize: FontSize.TALL,
-        fontWeight: FontWeight.W500,
+        fontWeight: FontWeight.W400,
         color: theme.primaryText,
         opacity: 0.8
     },
