@@ -27,7 +27,6 @@ const TinyStepMirrorPattern: React.FC<PatternProps> = (props: any) => {
     );
 }
 
-
 export {
     CircleQuarterPattern,
     TinyStepMirrorPattern
