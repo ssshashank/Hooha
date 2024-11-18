@@ -24,7 +24,7 @@ const LandingScreen: React.FC = () => {
     const styles = createStyles(theme);
 
     const handleButtonPressIn = () => gap.value = withSpring(30);
-    const handleButtonPressOut = () => gap.value = withSpring(15);
+    const handleButtonPressOut = () => gap.value = withSpring(15);  
 
     // return
     return (
@@ -38,7 +38,7 @@ const LandingScreen: React.FC = () => {
                     <View style={{ flex: 1 }}>
                         <Text style={styles.title}>Hoo-Ha</Text>
                         <Text style={styles.tagline}>
-                            Easiest way to{'\n'}manage your {'\n'}expenses.
+                            Easiest way to{'\n'}split your {'\n'}bills & expenses.
                         </Text>
                         <AnimatedRichButton style={{ ...styles.button, gap }} onPressIn={handleButtonPressIn} onPressOut={handleButtonPressOut}>
                             <Text style={styles.buttonText}>Get Started</Text>
@@ -63,7 +63,6 @@ const createStyles = (theme: Colors) => StyleSheet.create({
         position: 'relative',
         height: hp(89),
         width: wp(90),
-        //margin: 'auto',
         alignSelf: 'center',
         backgroundColor: 'transparent',
     },
