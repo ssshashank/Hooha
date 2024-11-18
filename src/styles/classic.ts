@@ -16,7 +16,7 @@ const ClassicTheme: ColorTheme = {
         secondary: '#A27B5C',
         tertiary: '#3F4E4F',
         background: '#000000',
-        primaryText: '#A27B5C',
+        primaryText: '#fff',
         secondaryText: '#000000',
         disabled: '#FFFFFF',
         border: '#FFFFFF',
