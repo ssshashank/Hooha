@@ -1,4 +1,5 @@
 // imports
+import { Link, router } from "expo-router";
 import { Text, View } from "react-native";
 
 /*
@@ -7,13 +8,14 @@ import { Text, View } from "react-native";
  * @Params() None
  * @Return() React.FC
 */
-const LoginScreen:React.FC = () => {
+const LoginScreen: React.FC = () => {
     
+    const handleOnClick = () => router.back();
     // return
     return (
         <View>
-            <Text>Login</Text>
-        </View>
+            <Text onPress={handleOnClick}>Login</Text>
+        </View >
     );
 };
 

@@ -9,6 +9,7 @@ import { RightArrow } from "@Assets/svg/rightArrow";
 import { useSharedValue, withSpring } from "react-native-reanimated";
 import { FontSize, FontWeight } from "@Constants/application";
 import { BackgroundPattern } from "@Assets/svg/bgPattern";
+import { router } from "expo-router";
 
 
 /*
@@ -24,7 +25,8 @@ const LandingScreen: React.FC = () => {
     const styles = createStyles(theme);
 
     const handleButtonPressIn = () => gap.value = withSpring(30);
-    const handleButtonPressOut = () => gap.value = withSpring(15);  
+    const handleButtonPressOut = () => gap.value = withSpring(15);
+    const handleOnClick = () => router.push('/login');
 
     // return
     return (
@@ -40,7 +42,7 @@ const LandingScreen: React.FC = () => {
                         <Text style={styles.tagline}>
                             Easiest way to{'\n'}split your {'\n'}bills & expenses.
                         </Text>
-                        <AnimatedRichButton style={{ ...styles.button, gap }} onPressIn={handleButtonPressIn} onPressOut={handleButtonPressOut}>
+                        <AnimatedRichButton style={{ ...styles.button, gap }} onPress={handleOnClick} onPressIn={handleButtonPressIn} onPressOut={handleButtonPressOut}>
                             <Text style={styles.buttonText}>Get Started</Text>
                             <RightArrow />
                         </AnimatedRichButton>

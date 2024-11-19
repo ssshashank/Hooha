@@ -17,7 +17,7 @@ const RootLayout: React.FC = () => {
             <View style={{ flex: 1 }}>
                 <StatusBar barStyle={'default'} />
                 <Stack>
-                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(auth)" options={{ headerShown: false, animation: 'none' }} />
                 </Stack>
             </View>
         </ThemeProvider>

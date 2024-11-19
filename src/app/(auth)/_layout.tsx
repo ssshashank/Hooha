@@ -24,7 +24,7 @@ const AuthLayout: React.FC = () => {
 
                         // return
                         return (
-                            <Stack.Screen key={key} name={value.name} options={{ headerShown: false }} />
+                            <Stack.Screen key={key} name={value.name} options={{ headerShown: false, animation: 'none' }} />
                         );
                     })}
                 </Stack>
