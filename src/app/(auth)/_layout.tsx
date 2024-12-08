@@ -15,6 +15,7 @@ import { ThemeContext } from '@Providers/themeProvider';
 const AuthLayout: React.FC = () => {
     const appTheme = useContext(ThemeContext);
     const { theme } = appTheme;
+
     // return
     return (
         <SafeAreaProvider>
@@ -29,9 +30,8 @@ const AuthLayout: React.FC = () => {
                     })}
                 </Stack>
             </SafeAreaView>
-
         </SafeAreaProvider>
     );
-}
+};
 
 export default AuthLayout;
