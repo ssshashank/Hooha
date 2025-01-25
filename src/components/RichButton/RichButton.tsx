@@ -1,6 +1,7 @@
 // import
+import { View } from "lucide-react-native";
 import React, { forwardRef } from "react";
-import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
+import { Dimensions, Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 
 // types of Button
@@ -61,15 +62,10 @@ const RichButton = forwardRef<
                 return [
                     {
                         flex: 1,
+                        width: Dimensions.get('window').width,
                         justifyContent: "center",
                         alignItems: "center",
-                        maxHeight: 55,
-                        height: 55,
-                        shadowColor: "#000",
-                        shadowOffset: { width: 4, height: 4 },
-                        shadowOpacity: 0.1,
-                        shadowRadius: 0,
-                        elevation: 5,
+                        paddingVertical: 20,
                     },
                     buttonStyle,
                     baseStyle,
