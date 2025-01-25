@@ -1,13 +1,18 @@
-export const APP_NAME = 'Hooha';
-export const APP_VERSION = '1.0.0';
+const APP_NAME = 'Hooha';
+const APP_VERSION = '1.0.0';
+const BASE_WIDTH = 375;
 
-export const enum ThemeMode {
+type ThemeType = 'CLASSIC' | 'MODERN' | 'VINTAGE' | 'MINIMAL';
+
+type Mode = typeof ThemeMode[keyof typeof ThemeMode];
+
+const enum ThemeMode {
     DARK = 'dark',
     LIGHT = 'light',
     SYSTEM = 'system'
-}
+};
 
-export const enum FontWeight {
+const enum FontWeight {
     W100 = '100',
     W200 = '200',
     W300 = '300',
@@ -17,18 +22,30 @@ export const enum FontWeight {
     W700 = '700',
     W800 = '800',
     W900 = '900'
-}
+};
 
-export const enum FontSize {
+const enum FontSize {
     XXS = 10,
     XS = 12,
     SM = 14,
-    MD = 16,
-    LG = 18,
-    XL = 20,
-    XXL = 24,
-    XXXL = 28,
-    XXXXL = 32,
-    TALL = 50,
-    MEGA = 60
-}
+    DEFAULT = 16,
+    MD = 20,
+    LG = 26,
+    XL = 32,
+    XXL = 38,
+    XXXL = 44,
+    XXXXL = 50,
+    TALL = 56,
+    MEGA = 65
+};
+
+export {
+    APP_NAME,
+    APP_VERSION,
+    ThemeType,
+    Mode,
+    ThemeMode,
+    FontWeight,
+    FontSize,
+    BASE_WIDTH
+};
