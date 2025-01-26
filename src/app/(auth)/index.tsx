@@ -1,20 +1,15 @@
 // imports
 import { useContext } from "react";
-import { ScrollView, Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { router } from "expo-router";
-import Animated, {
-    FadeInUp,
-    ReduceMotion,
-    useSharedValue,
-    withSpring,
-} from "react-native-reanimated";
+import Animated, { FadeIn, useSharedValue, withSpring } from "react-native-reanimated";
 import { ThemeContext } from "@Providers/themeProvider";
 import { AnimatedRichButton } from "@Components/RichButton/RichButton";
 import { Colors } from "@Styles/theme.type";
-import { hp, wp } from "@Helpers/dimension";
 import { RightArrow } from "@Assets/svg/rightArrow";
 import { FontSize, FontWeight } from "@Constants/application";
 import { BackgroundPattern } from "@Assets/svg/bgPattern";
+import { useDimension } from "@Hooks/useDimension";
 
 /*
  * @Function() Landing Screen
@@ -28,64 +23,58 @@ const LandingScreen: React.FC = () => {
     const { theme } = appTheme;
     const styles = createStyles(theme);
 
+    // animate button on press
     const handleButtonPressIn = () => (gap.value = withSpring(30));
     const handleButtonPressOut = () => (gap.value = withSpring(15));
     const handleOnClick = () => router.push("/login");
 
-    // return
     return (
-        <ScrollView style={styles.scrollView} alwaysBounceVertical={false}>
+        <View style={styles.scrollView}>
             <View style={styles.container}>
                 <BackgroundPattern style={styles.backgroundPattern} />
-                <View style={styles.topContainer}></View>
                 <View style={styles.bottomContainer}>
                     <View style={{ flex: 1 }}>
-                        <Animated.Text
-                            style={styles.title}
-                            entering={FadeInUp.delay(500)
-                                .randomDelay()
-                                .reduceMotion(ReduceMotion.Never)
-                                .withInitialValues({ transform: [{ translateY: 420 }] })
-                                .withCallback((finished) => {
-                                    console.log(`finished without interruptions: ${finished}`);
-                                })}
-                        >
-                            Hoo-Ha
+                        <Animated.Text style={styles.title} entering={FadeIn.delay(200).duration(300)}>Hooha</Animated.Text>
+                        <Animated.Text style={styles.tagline} entering={FadeIn.delay(400).duration(300)} >
+                            Split your bills{'\n'}with Hooha
                         </Animated.Text>
-                        <Text style={styles.tagline}>
-                            Easiest way to{"\n"}split your {"\n"}bills & expenses.
-                        </Text>
-                        <AnimatedRichButton
-                            style={{ ...styles.button, gap }}
-                            onPress={handleOnClick}
-                            onPressIn={handleButtonPressIn}
-                            onPressOut={handleButtonPressOut}
-                        >
-                            <Text style={styles.buttonText}>Get Started</Text>
-                            <RightArrow />
-                        </AnimatedRichButton>
+                        <Animated.Text style={styles.subTitle} entering={FadeIn.delay(400).duration(300)}>
+                            Splitting bills with your friends? We've got you covered.
+                        </Animated.Text>
+                        <Animated.View entering={FadeIn.delay(600).duration(300)}>
+                            <AnimatedRichButton
+                                style={{ ...styles.button, gap }}
+                                onPress={handleOnClick}
+                                onPressIn={handleButtonPressIn}
+                                onPressOut={handleButtonPressOut}
+                            >
+                                <Text style={styles.buttonText}>Get Started</Text>
+                                <RightArrow />
+                            </AnimatedRichButton>
+                        </Animated.View>
+                        <Animated.Text style={styles.copyright} entering={FadeIn.delay(800).duration(300)}>
+                            Hoo-Ha | Copyright ©{new Date().getFullYear()}
+                        </Animated.Text>
                     </View>
-                    <Text style={styles.copyright}>
-                        Hoo-Ha | Copyright ©{new Date().getFullYear()}
-                    </Text>
                 </View>
             </View>
-        </ScrollView>
+        </View >
     );
 };
 
 // styleSheet
-const createStyles = (theme: Colors) =>
-    StyleSheet.create({
+const createStyles = (theme: Colors) => {
+    const { wp, hp, scaleFontSize } = useDimension();
+    return StyleSheet.create({
         scrollView: {
+            flex: 1,
             backgroundColor: theme.background,
         },
         container: {
-            position: "relative",
-            height: hp(89),
             width: wp(90),
-            alignSelf: "center",
+            margin: 'auto',
             backgroundColor: "transparent",
+            flex: 1
         },
         backgroundPattern: {
             position: "absolute",
@@ -94,49 +83,55 @@ const createStyles = (theme: Colors) =>
             width: wp(100),
             height: hp(100),
         },
-        topContainer: {
-            height: hp(45),
-            display: "flex",
-            flexDirection: "column-reverse",
-        },
         bottomContainer: {
+            bottom: 30,
             flex: 1,
             display: "flex",
             justifyContent: "space-between",
+            position: 'absolute'
         },
         title: {
-            fontSize: FontSize.XXXL,
+            fontSize: scaleFontSize(FontSize.LG),
             fontWeight: FontWeight.W500,
             color: theme.primaryText,
             opacity: 0.4,
         },
         tagline: {
-            fontSize: FontSize.TALL,
-            fontWeight: FontWeight.W400,
+            fontSize: scaleFontSize(FontSize.XXL),
+            fontWeight: FontWeight.W500,
             color: theme.primaryText,
             opacity: 0.8,
         },
+        subTitle: {
+            fontSize: scaleFontSize(FontSize.XS),
+            marginVertical: hp(1),
+            color: theme.secondaryText,
+            opacity: 0.7
+        },
         button: {
+            width: wp(90),
             flexDirection: "row",
             marginTop: hp(2),
+            borderRadius: 1,
             color: theme.background,
-            borderRadius: 0,
-            elevation: 10,
-            shadowOpacity: 0.2,
-            shadowColor: theme.primary,
             backgroundColor: theme.primary,
+            marginBottom: hp(5)
         },
         buttonText: {
             color: theme.background,
-            fontSize: FontSize.MD,
+            fontSize: scaleFontSize(FontSize.DEFAULT),
         },
         copyright: {
             textAlign: "center",
-            marginVertical: 10,
+            marginTop: 20,
             fontWeight: FontWeight.W500,
             color: theme.primaryText,
+            fontSize: scaleFontSize(FontSize.XS),
             opacity: 0.6,
-        },
+        }
     });
+};
 
 export default LandingScreen;
+
+
