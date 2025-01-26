@@ -22,8 +22,6 @@ const AuthLayout: React.FC = () => {
             <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
                 <Stack screenOptions={{ headerShown: false }}>
                     {Object.entries(AUTH_ROUTES || {}).map(([key, value]) => {
-
-                        // return
                         return (
                             <Stack.Screen key={key} name={value.name} options={{ headerShown: false, animation: 'none' }} />
                         );
