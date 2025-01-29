@@ -9,7 +9,7 @@
 		"lib": ["dom", "esnext"],
 		"noEmit": true,
 		"allowSyntheticDefaultImports": true,
-        "allowImportingTsExtensions": true,
+		"allowImportingTsExtensions": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 		"baseUrl": ".",
@@ -17,14 +17,20 @@
 			"@/*": ["./src/*"],
 			"@Assets/*": ["./assets/*"],
 			"@Components/*": ["./src/components/*"],
-            "@Constants/*": ["./src/constants/*"],
+			"@Constants/*": ["./src/constants/*"],
 			"@Hooks/*": ["./src/hooks/*"],
 			"@Styles/*": ["./src/styles/*"],
 			"@Utils/*": ["./src/utils/*"],
-            "@Providers/*": ["./src/providers/*"],
-            "@Helpers/*": ["./src/helpers/*"]
+			"@Providers/*": ["./src/providers/*"],
+			"@Helpers/*": ["./src/helpers/*"]
 		}
 	},
-	"include": ["src","**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
+	"include": [
+		"src",
+		"**/*.ts",
+		"**/*.tsx",
+		".expo/types/**/*.ts",
+		"expo-env.d.ts"
+	],
 	"exclude": ["node_modules"]
 }
