@@ -1,6 +1,10 @@
+import { Dimensions } from "react-native";
+
 const APP_NAME = 'Hooha';
 const APP_VERSION = '1.0.0';
 const BASE_WIDTH = 375;
+const DEVICE_HEIGHT = Dimensions.get("window").height;
+const DEVICE_WIDTH = Dimensions.get("window").width;
 
 type ThemeType = 'CLASSIC' | 'MODERN' | 'VINTAGE' | 'MINIMAL';
 
@@ -47,5 +51,7 @@ export {
     ThemeMode,
     FontWeight,
     FontSize,
-    BASE_WIDTH
+    BASE_WIDTH,
+    DEVICE_WIDTH,
+    DEVICE_HEIGHT
 };
