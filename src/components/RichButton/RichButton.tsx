@@ -1,7 +1,13 @@
 // import
 import { View } from "lucide-react-native";
 import React, { forwardRef } from "react";
-import { Dimensions, Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
+import {
+    Dimensions,
+    Pressable,
+    PressableProps,
+    StyleProp,
+    ViewStyle,
+} from "react-native";
 import Animated from "react-native-reanimated";
 
 // types of Button
@@ -27,7 +33,7 @@ interface RichButtonProps extends PressableProps {
     style?:
     | StyleProp<ViewStyle>
     | ((state: { pressed: boolean }) => StyleProp<ViewStyle>);
-    variants?: ButtonVariant;
+    variants?: ButtonVariant
 }
 
 /**
@@ -61,19 +67,18 @@ const RichButton = forwardRef<
                     typeof style === "function" ? style({ pressed }) : style;
                 return [
                     {
-                        flex: 1,
-                        width: Dimensions.get('window').width,
+                        width: Dimensions.get("window").width,
+                        borderRadius: 2,
                         justifyContent: "center",
                         alignItems: "center",
-                        paddingVertical: 20,
+                        paddingVertical: 18,
                     },
                     buttonStyle,
                     baseStyle,
-                    pressed && { opacity: 1 }, // Optional: add a press effect
+                    // pressed && { opacity: 1 }, // Optional: add a press effect
                 ];
             }}
-            {...otherProps}
-        >
+            {...otherProps}>
             {children}
         </Pressable>
     );
@@ -141,8 +146,7 @@ const RichFABButton = forwardRef<
                     pressed && { opacity: 0.8 }, // Optional: add a press effect
                 ];
             }}
-            {...otherProps}
-        >
+            {...otherProps}>
             {children}
         </Pressable>
     );

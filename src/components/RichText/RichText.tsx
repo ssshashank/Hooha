@@ -10,7 +10,6 @@ interface RichTextProps extends TextProps {
     children?: React.ReactNode
 }
 
-
 /**
  * RichText component
  * 
