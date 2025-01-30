@@ -1,3 +1,4 @@
+// imports
 import { forwardRef, useState } from "react";
 import { NativeSyntheticEvent, StyleProp, Text, TextInput, TextInputFocusEventData, TextInputProps, TextStyle, View, ViewStyle } from "react-native";
 
@@ -72,15 +73,12 @@ const InputField = forwardRef<
                             marginRight: 'auto',
                         }
                     ]}
-
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     {...otherProps}>
                     {children}
                 </TextInput >
-                <View style={[{
-                    paddingHorizontal: 5
-                }]}>
+                <View style={[{ paddingHorizontal: 5 }]}>
                     {suffixIcon}
                 </View>
             </View>
@@ -92,7 +90,7 @@ const InputField = forwardRef<
                         fontWeight: 500
                     },
                     errorStyle
-                ]}>* {errorMessage}
+                ]}>* {errorMessage ?? 'This is the error message'}
                 </Text>
             }
         </>
