@@ -5,6 +5,7 @@ import { useColorScheme } from 'react-native';
 import { Colors, Mode } from '@Styles/theme.type';
 import { ThemeMode } from '@Constants/application';
 import ClassicTheme from '@Styles/classic';
+import FreshTheme from "@Styles/fresh";
 
 /**
  * Props interface for the ThemeProvider component
@@ -77,6 +78,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
                     setTheme(mode === 'light' ? ClassicTheme?.light : ClassicTheme?.dark);
                 }
                 break;
+            case 'FRESH':
+                if (mode === ThemeMode.SYSTEM) {
+                    setTheme(colorScheme === 'light' ? FreshTheme?.light : FreshTheme?.dark);
+                } else {
+                    setTheme(mode === 'light' ? FreshTheme?.light : FreshTheme?.dark);
+                }
+                break;
+
             default:
                 if (mode === ThemeMode.SYSTEM) {
                     setTheme(colorScheme === 'light' ? ClassicTheme?.light : ClassicTheme?.dark);
