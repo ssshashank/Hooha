@@ -1,7 +1,7 @@
 // imports
 import { router } from "expo-router";
-import { useContext, useEffect, useRef, useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { ThemeContext } from "@Providers/themeProvider";
 import Animated, { useAnimatedStyle, useSharedValue, Easing, withSpring, withTiming, FadeIn } from "react-native-reanimated";
 import { useDimension } from "@Hooks/useDimension";
@@ -11,7 +11,8 @@ import { AnimatedRichButton } from "@Components/RichButton/RichButton";
 import { LeftArrow, RightArrow } from "@Assets/svg/arrow";
 import { Pills } from "@Components/pills";
 import { AnimatedPickerBody, Picker } from "@Components/Picker";
-
+import CountryCodeList from "@Config/countryCode.json";
+import { Search } from "lucide-react-native";
 /*
  * @Function() Login Screen
  * @Description() This is the Login Screen
@@ -36,11 +37,12 @@ const LoginScreen: React.FC = () => {
     const width = useSharedValue<number>(70);
     const translateY = useSharedValue<number>(0);
     const INITAL_HEIGHT = 46;
-    const FINAL_HEIGHT = 400;
+    const FINAL_HEIGHT = 500;
     const INITIAL_WIDTH = 70;
     const TOP_DISTANCE = useSharedValue<number>(0);
     const pickerRef = useRef<React.ElementRef<typeof Pressable>>(null);
-
+    const [countryCode, setCountryCode] = useState<string>("91");
+    const [countryCodeSearch, setCountryCodeSearch] = useState("");
     const pickerAnimatedStyle = useAnimatedStyle(() => ({
         height: height.value,
         width: width.value,
@@ -52,18 +54,17 @@ const LoginScreen: React.FC = () => {
         ],
     }));
 
-    const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
+    // function to handle expanded picker
     const handlePress = () => {
         if (!isPressed) {
             height.value = withTiming(FINAL_HEIGHT, { duration: 200, easing: Easing.inOut(Easing.ease) });
             width.value = withTiming(DEVICE_WIDTH * 0.9, { duration: 200, easing: Easing.inOut(Easing.ease) });
-            translateY.value = withTiming(-(Math.abs(DEVICE_HEIGHT / 2 - TOP_DISTANCE.value) + ((FINAL_HEIGHT - INITAL_HEIGHT) / 2)),
-                { duration: 200, easing: Easing.inOut(Easing.ease) });
+            translateY.value = withTiming(-(Math.abs(DEVICE_HEIGHT / 2 - TOP_DISTANCE.value) + ((FINAL_HEIGHT - INITAL_HEIGHT) / 2)), { duration: 200, easing: Easing.inOut(Easing.ease) });
             setIsPressed(true);
         }
     }
 
+    // function to dismiss expanded picker when clicked outside picker
     const collapseSize = () => {
         if (isPressed) {
             height.value = withTiming(INITAL_HEIGHT, { duration: 200, easing: Easing.inOut(Easing.ease) });
@@ -73,6 +74,7 @@ const LoginScreen: React.FC = () => {
         }
     };
 
+    // dismiss keyboard when clicked in viewport
     const dismissKeyboard = () => Keyboard.dismiss();
 
     // login page side effects
@@ -84,6 +86,20 @@ const LoginScreen: React.FC = () => {
             });
         }
     }, []);
+
+    // get flag emoji based on country code
+    const getFlagEmoji = (countryCode: string) => {
+        const codePoints = countryCode
+            .toUpperCase()
+            .split('')
+            .map(char => 127397 + char.charCodeAt(0));
+        return String.fromCodePoint(...codePoints);
+    };
+
+    const filterCountryCodeMemo = useMemo(() => {
+        const result: any = CountryCodeList?.filter((country) => country?.name?.toLowerCase()?.includes(countryCodeSearch?.toLowerCase()) || country?.dial_code?.includes(countryCodeSearch?.toLowerCase()));
+        return result?.length > 0 ? result : [];
+    }, [countryCodeSearch]);
 
     // return
     return (
@@ -129,62 +145,79 @@ const LoginScreen: React.FC = () => {
                                             renderToHardwareTextureAndroid={true}>
                                             {isPressed ?
                                                 <View style={styles.pickerContentContainer}>
-                                                    <Animated.ScrollView
-                                                        entering={FadeIn}
-                                                        style={[styles.scrollContainer]}
-                                                        showsVerticalScrollIndicator={false}
-                                                        nestedScrollEnabled={true}
-                                                        stickyHeaderHiddenOnScroll={false}
-                                                        stickyHeaderIndices={[0]}
-                                                        centerContent={true}
-                                                        bounces={false}
-                                                    >
+                                                    <View style={{
+                                                        width: DEVICE_WIDTH * 0.9,
+                                                        padding: 20,
+                                                        borderTopLeftRadius: 2,
+                                                        borderTopRightRadius: 2,
+                                                        backgroundColor: 'black',
+                                                        marginHorizontal: 'auto'
+                                                    }}>
                                                         <View style={{
-                                                            width: DEVICE_WIDTH * 0.9,
-                                                            padding: 20,
-                                                            borderTopLeftRadius: 10,
-                                                            borderTopRightRadius: 10,
-                                                            backgroundColor: '#E5E7EB',
-                                                            marginHorizontal: 'auto'
+                                                            flexDirection: "row",
+                                                            justifyContent: "space-between",
+                                                            alignItems: "center"
                                                         }}>
-                                                            <View style={{
-                                                                flexDirection: "row",
-                                                                justifyContent: "space-between",
-                                                                alignItems: "center"
-                                                            }}>
-                                                                <View>
-                                                                    <Text style={{ fontSize: 35, fontWeight: 600 }}>
-                                                                         Code
-                                                                    </Text>
-                                                                </View>
+                                                            <View>
+                                                                <Text style={{
+                                                                    fontSize: 35,
+                                                                    color: 'white',
+                                                                    fontWeight: 600
+                                                                }}>
+                                                                    Code
+                                                                </Text>
                                                             </View>
                                                         </View>
-                                                        <View style={{
-                                                            width: DEVICE_WIDTH * 0.9,
-                                                            marginHorizontal: "auto"
-                                                        }}>
-                                                            {Array.from({ length: 20 }).map((_, index) => (
-                                                                <AnimatedPressable
-                                                                    entering={FadeIn.delay(index * 50).easing(Easing.sin)}
-                                                                    key={index}
-                                                                    style={styles.countryItem}
-                                                                    onPress={() => {
-                                                                        // handle country selection
-                                                                        collapseSize();
-                                                                    }}>
-                                                                    <Text>+{index + 1} Country {index + 1}</Text>
-                                                                </AnimatedPressable>
-                                                            ))}
-                                                        </View>
-                                                    </Animated.ScrollView>
+                                                    </View>
+                                                    <View style={{ width: DEVICE_WIDTH * 0.8, marginHorizontal: "auto", marginVertical: 20 }}>
+                                                        <InputField
+                                                            value={countryCodeSearch}
+                                                            onChangeText={(text) => setCountryCodeSearch(text)}
+                                                            placeholder="Search country"
+                                                            inputFieldStyle={{ borderWidth: 0, backgroundColor: "#F3F4F6" }}
+                                                            prefixIcon={<Search color="black" size={15} style={{marginHorizontal:2}} />}
+                                                            suffixIcon={countryCodeSearch?.length > 0 ?
+                                                                <Pills style={{
+                                                                    borderWidth: 1, paddingHorizontal: 5, paddingVertical: 2, borderRadius: 3,
+                                                                    backgroundColor: "black"
+                                                                }}
+                                                                    onPress={() => setCountryCodeSearch("")}>
+                                                                    <Text style={{ textAlign: "center", color: "white", fontSize: 12 }}>CLEAR</Text>
+                                                                </Pills>
+                                                                : null}
+                                                        >
+
+                                                        </InputField>
+                                                    </View>
+                                                    <Animated.FlatList
+                                                        data={filterCountryCodeMemo?.length > 0 ? filterCountryCodeMemo : CountryCodeList}
+                                                        entering={FadeIn.delay(300).easing(Easing.linear)}
+                                                        style={[styles.scrollContainer]}
+                                                        showsVerticalScrollIndicator={false}
+                                                        keyExtractor={item => item?.code}
+                                                        renderItem={({ item }) => (
+                                                            <View style={{
+                                                                width: DEVICE_WIDTH * 0.8,
+                                                                marginHorizontal: "auto"
+                                                            }}>
+                                                                <TouchableOpacity style={{ paddingVertical: 10, borderRadius: 2, marginVertical: 2 }} onPress={() => {
+                                                                    setCountryCode(item?.dial_code);
+                                                                    collapseSize();
+                                                                }}>
+                                                                    <Text style={{ fontSize: 16 }}> {getFlagEmoji(item?.code)} +{item?.dial_code}   {item?.name}</Text>
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        )}
+                                                    />
                                                 </View> :
-                                                <Text style={{fontSize:18, fontWeight:500}}>+ 91</Text>
+                                                <Text style={{ fontSize: 16, fontWeight: 500 }}>+ {countryCode} </Text>
                                             }
                                         </AnimatedPickerBody>
                                     </Picker>
                                     <InputField inputFieldStyle={styles?.inputFieldStyle}
                                         placeholder="999 - 999 - 9999"
                                         keyboardType="numeric"
+                                        maxLength={10}
                                     />
                                 </View>
                             </View>
@@ -320,7 +353,7 @@ const createStyles = (theme: any) => {
             shadowOpacity: 0.58,
             shadowRadius: 16.00,
             elevation: 24,
-            borderRadius:2,
+            borderRadius: 2,
         },
         scrollContainer: {
             flex: 1,
@@ -331,6 +364,7 @@ const createStyles = (theme: any) => {
         countryItem: {
             width: '100%',
             padding: 15,
+            flexDirection: "row",
             borderBottomWidth: 0.5,
             borderBottomColor: '#D1D5DB',
         },
