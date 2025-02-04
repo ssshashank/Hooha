@@ -13,6 +13,7 @@ import { Pills } from "@Components/pills";
 import { AnimatedPickerBody, Picker } from "@Components/Picker";
 import CountryCodeList from "@Config/countryCode.json";
 import { Search } from "lucide-react-native";
+
 /*
  * @Function() Login Screen
  * @Description() This is the Login Screen
@@ -20,6 +21,11 @@ import { Search } from "lucide-react-native";
  * @Return() React.FC
 */
 const LoginScreen: React.FC = () => {
+    // default values
+    const INITAL_HEIGHT = 46;
+    const FINAL_HEIGHT = 500;
+    const INITIAL_WIDTH = 70;
+
     // app theme
     const appTheme = useContext(ThemeContext);
     const { theme } = appTheme;
@@ -36,9 +42,7 @@ const LoginScreen: React.FC = () => {
     const height = useSharedValue<number>(46);
     const width = useSharedValue<number>(70);
     const translateY = useSharedValue<number>(0);
-    const INITAL_HEIGHT = 46;
-    const FINAL_HEIGHT = 500;
-    const INITIAL_WIDTH = 70;
+
     const TOP_DISTANCE = useSharedValue<number>(0);
     const pickerRef = useRef<React.ElementRef<typeof Pressable>>(null);
     const [countryCode, setCountryCode] = useState<string>("91");
