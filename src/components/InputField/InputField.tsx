@@ -13,6 +13,7 @@ interface InputFieldProps extends TextInputProps {
     prefixIcon?: React.ReactNode;
     inputFieldStyle?: StyleProp<ViewStyle>;
     errorStyle?: StyleProp<TextStyle>;
+    inputStyle?: StyleProp<any>;
 }
 
 /**
@@ -28,7 +29,7 @@ const InputField = forwardRef<
     InputFieldProps
 >((props, ref) => {
     const [isFocused, setIsFocused] = useState(false);
-    const { onFocus: parentOnFocus, onBlur: parentOnBlur, suffixIcon, prefixIcon, children, label, labelStyle, isError, inputFieldStyle, errorStyle, errorMessage, ...otherProps } = props;
+    const { onFocus: parentOnFocus, onBlur: parentOnBlur, suffixIcon, prefixIcon, children, label, inputStyle, labelStyle, isError, inputFieldStyle, errorStyle, errorMessage, ...otherProps } = props;
 
     const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         setIsFocused(true);
@@ -64,6 +65,7 @@ const InputField = forwardRef<
                 <TextInput ref={ref}
                     style={[
                         {
+                            borderWidth: 0,
                             cursor: 'pointer',
                             paddingVertical: 15,
                             paddingHorizontal: 1,
@@ -71,7 +73,8 @@ const InputField = forwardRef<
                             flex: 1,
                             marginLeft: 'auto',
                             marginRight: 'auto',
-                        }
+                        },
+                        inputStyle
                     ]}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
