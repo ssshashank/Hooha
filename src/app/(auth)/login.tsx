@@ -1,7 +1,7 @@
 // imports
 import { router } from "expo-router";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Dimensions, Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { ThemeContext } from "@Providers/themeProvider";
 import Animated, { useAnimatedStyle, useSharedValue, Easing, withSpring, withTiming, FadeIn } from "react-native-reanimated";
 import { useDimension } from "@Hooks/useDimension";
@@ -13,6 +13,7 @@ import { Pills } from "@Components/pills";
 import { AnimatedPickerBody, Picker } from "@Components/Picker";
 import CountryCodeList from "@Config/countryCode.json";
 import { Search } from "lucide-react-native";
+import { OTPBox } from "@/components/OTPBox";
 
 /*
  * @Function() Login Screen
@@ -179,7 +180,7 @@ const LoginScreen: React.FC = () => {
                                                             onChangeText={(text) => setCountryCodeSearch(text)}
                                                             placeholder="Search country"
                                                             inputFieldStyle={{ borderWidth: 0, backgroundColor: "#F3F4F6" }}
-                                                            prefixIcon={<Search color="black" size={15} style={{marginHorizontal:2}} />}
+                                                            prefixIcon={<Search color="black" size={15} style={{ marginHorizontal: 2 }} />}
                                                             suffixIcon={countryCodeSearch?.length > 0 ?
                                                                 <Pills style={{
                                                                     borderWidth: 1, paddingHorizontal: 5, paddingVertical: 2, borderRadius: 3,
@@ -190,7 +191,6 @@ const LoginScreen: React.FC = () => {
                                                                 </Pills>
                                                                 : null}
                                                         >
-
                                                         </InputField>
                                                     </View>
                                                     <Animated.FlatList
@@ -224,6 +224,9 @@ const LoginScreen: React.FC = () => {
                                         maxLength={10}
                                     />
                                 </View>
+                            </View>
+                            <View style={{ width: DEVICE_WIDTH * 0.9, marginHorizontal: 'auto', marginVertical: 20 }}>
+                                <OTPBox length={6} />
                             </View>
                             <Animated.View style={{ zIndex: 0 }}>
                                 <AnimatedRichButton
